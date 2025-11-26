@@ -5,6 +5,7 @@ pipeline {
       agent {
         docker {
           image 'maven:3.9.11-eclipse-temurin-21-alpine'
+          args '-v m2:/home/jenkins/.m2'
         }
 
       }
@@ -18,6 +19,7 @@ pipeline {
       agent {
         docker {
           image 'maven:3.9.11-eclipse-temurin-21-alpine'
+          args '-v m2:/home/jenkins/.m2'
         }
 
       }
@@ -31,6 +33,7 @@ pipeline {
       agent {
         docker {
           image 'maven:3.9.11-eclipse-temurin-21-alpine'
+          args '-v m2:/home/jenkins/.m2'
         }
 
       }
