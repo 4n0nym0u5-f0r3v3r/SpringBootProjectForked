@@ -7,25 +7,25 @@ pipeline{
     }    
 
     stages{
-        stage('one'){
+        stage('Build'){
             steps{
-                echo 'this is the first job'
-                sh 'uptime'
-                sleep 4
+                echo 'Building'
+                sh 'mvn compile'
+
             }
         }
-        stage('two'){
+        stage('Test'){
             steps{
-                echo 'this is the second job'
-                sh 'uptime'
-                sleep 9
+                echo 'Testing'
+                sh 'mvn clean test'
             }
         }
-        stage('three'){
+        stage('Package'){
             steps{
-                echo 'this is the third job'
-                sh 'uptime'
-                sleep 7
+                echo 'Packaging'
+                sh 'mvn versions:set -DnewVersions="$(echo $GIT_COMMIT | cut -c 1-7 )" &&  mvn versions:commit'
+                sh 'mvn  package -DskipTests'
+                archiveArtifacts '**/target/*.jar'
             }
         }
     }
