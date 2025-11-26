@@ -44,6 +44,13 @@ mvn package -DskipTests'''
       }
     }
 
+    stage('Deploy') {
+      steps {
+        sh '''docker rm -f app || true
+docker run -d --name app -p 8000:8080 graves869/firstevercontainer:"$(echo $GIT_COMMIT | cut -c 1-7)"'''
+      }
+    }
+
   }
   tools {
     maven 'Maven 3.9.11'
