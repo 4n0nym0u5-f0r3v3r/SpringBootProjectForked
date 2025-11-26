@@ -1,26 +1,14 @@
 pipeline {
-  agent none
+  agent any
   stages {
     stage('Build') {
-      agent {
-        docker {
-          image 'maven:3.9.11-eclipse-temurin-21-alpine'
-        }
-
-      }
       steps {
         echo 'Building'
-        sh 'mvn compile -X'
+        sh 'mvn compile'
       }
     }
 
     stage('Test') {
-      agent {
-        docker {
-          image 'maven:3.9.11-eclipse-temurin-21-alpine'
-        }
-
-      }
       steps {
         echo 'Testing'
         sh 'mvn clean test'
@@ -28,12 +16,6 @@ pipeline {
     }
 
     stage('Package') {
-      agent {
-        docker {
-          image 'maven:3.9.11-eclipse-temurin-21-alpine'
-        }
-
-      }
       steps {
         echo 'Packaging'
         sh '''GIT_SHORT_COMMIT=$(echo $GIT_COMMIT | cut -c 1-7)
