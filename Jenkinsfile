@@ -10,7 +10,7 @@ pipeline {
       }
       steps {
         echo 'Building'
-        sh 'mvn compile'
+        sh 'mvn compile -X'
       }
     }
 
