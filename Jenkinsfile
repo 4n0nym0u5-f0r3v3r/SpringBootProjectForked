@@ -45,6 +45,12 @@ mvn package -DskipTests'''
     }
 
     stage('Deploy') {
+      agent {
+        node {
+          label 'docker-host'
+        }
+
+      }
       steps {
         sh '''docker rm -f app || true
 docker run -d --name app -p 8000:8080 graves869/firstevercontainer:"$(echo $GIT_COMMIT | cut -c 1-7)"'''
