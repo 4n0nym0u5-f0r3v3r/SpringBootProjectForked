@@ -4,12 +4,7 @@ pipeline {
     stage('Build') {
       agent {
         docker {
-<<<<<<< HEAD
-          image 'maven:3.9.11-eclipse-temurin-21-alpine'
-          args '-v m2:/home/jenkins/.m2'
-=======
           image 'maven:3.9.6-eclipse-temurin-17-alpine'
->>>>>>> parent of b01c495 (Updating maven image to match architecture of building node)
         }
 
       }
@@ -22,12 +17,7 @@ pipeline {
     stage('Test') {
       agent {
         docker {
-<<<<<<< HEAD
-          image 'maven:3.9.11-eclipse-temurin-21-alpine'
-          args '-v m2:/home/jenkins/.m2'
-=======
           image 'maven:3.9.6-eclipse-temurin-17-alpine'
->>>>>>> parent of b01c495 (Updating maven image to match architecture of building node)
         }
 
       }
@@ -40,12 +30,7 @@ pipeline {
     stage('Package') {
       agent {
         docker {
-<<<<<<< HEAD
-          image 'maven:3.9.11-eclipse-temurin-21-alpine'
-          args '-v m2:/home/jenkins/.m2'
-=======
           image 'maven:3.9.6-eclipse-temurin-17-alpine'
->>>>>>> parent of b01c495 (Updating maven image to match architecture of building node)
         }
 
       }
