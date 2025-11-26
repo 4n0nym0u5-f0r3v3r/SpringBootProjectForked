@@ -33,7 +33,7 @@ mvn package -DskipTests'''
             script {
               docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
                 def commitHash = env.GIT_COMMIT.take(7)
-                def dockerImage = docker.build("graves869/FirstEverContainer:${commitHash}", "./")
+                def dockerImage = docker.build("graves869/firstevercontainer:${commitHash}", "./")
                 dockerImage.push()
               }
             }
