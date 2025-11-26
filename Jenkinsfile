@@ -16,13 +16,31 @@ pipeline {
     }
 
     stage('Package') {
-      steps {
-        echo 'Packaging'
-        sh '''GIT_SHORT_COMMIT=$(echo $GIT_COMMIT | cut -c 1-7)
+      parallel {
+        stage('Package') {
+          steps {
+            echo 'Packaging'
+            sh '''GIT_SHORT_COMMIT=$(echo $GIT_COMMIT | cut -c 1-7)
 mvn versions:set -DnewVersion="$GIT_SHORT_COMMIT"
 mvn versions:commit
 mvn package -DskipTests'''
-        archiveArtifacts '**/target/*.jar'
+            archiveArtifacts '**/target/*.jar'
+          }
+        }
+
+        stage('DockerPublish') {
+          steps {
+            script {
+              docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
+                def commitHash = env.GIT_COMMIT.take(7)
+                def dockerImage = docker.build("graves869/FirstEverContainer:${commitHash}", "./")
+                dockerImage.push()
+              }
+            }
+
+          }
+        }
+
       }
     }
 
